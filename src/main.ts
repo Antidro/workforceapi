@@ -4,8 +4,8 @@ import { DocumentBuilder, SwaggerModule } from "@nestjs/swagger";
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
+  const port = process.env.PORT || 3000;
 
-  
   const config = new DocumentBuilder()
     .setTitle('WORKFORCE')
     .setDescription('The WORKFORCE API description')
@@ -16,7 +16,7 @@ async function bootstrap() {
   SwaggerModule.setup('api', app, document);
   
   app.enableCors();
-  await app.listen(3000);
+  await app.listen(port);
 }
 
 bootstrap();

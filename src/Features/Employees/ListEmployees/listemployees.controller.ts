@@ -1,5 +1,4 @@
 // src/employee/employee.controller.ts
-
 import { Controller, Get, Param, Query } from '@nestjs/common';
 import { CommandBus, QueryBus } from '@nestjs/cqrs';
 import { ListEmployeesDto } from 'src/Contracts/Employees/listemployees.dto';
@@ -9,7 +8,6 @@ import { Employee } from 'src/Domain/Employees/employee.schema';
 @Controller('employees')
 export class ListEmployeesController {
   constructor(private readonly commandBus: CommandBus) {}
-
   /**
    * List all employees in the workforce
    * @param page 
@@ -27,7 +25,11 @@ export class ListEmployeesController {
         limit,
       });
 
-      return await this.commandBus.execute(query);
-    } catch (e) {}
+      const employees: Employee[] = await this.commandBus.execute(query);
+
+      return { data: employees, total: employees.length };
+    } catch (e) {
+      console.log(e);
+    }
   }
 }

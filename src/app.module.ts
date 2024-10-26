@@ -7,7 +7,7 @@ import { CommandBus, CqrsModule } from "@nestjs/cqrs";
 
 @Module({
   imports: [
-    MongooseModule.forRoot("mongodb://localhost:27017/employeesdb"),
+    MongooseModule.forRoot("mongodb+srv://veldfolds:1sIhlfo854dI2HZB@cluster0.abyauzc.mongodb.net/employees?retryWrites=true&w=majority"),
     EmployeesModule,
   ],
   providers: [AppService, CommandBus],
