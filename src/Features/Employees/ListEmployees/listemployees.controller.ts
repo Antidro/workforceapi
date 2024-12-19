@@ -1,20 +1,20 @@
 // src/employee/employee.controller.ts
-import { Controller, Get, Param, Query } from '@nestjs/common';
+import { Controller, Get, Param } from '@nestjs/common';
+import { ApiTags, ApiOperation, ApiResponse, ApiBody } from '@nestjs/swagger';
 import { CommandBus, QueryBus } from '@nestjs/cqrs';
 import { ListEmployeesDto } from 'src/Contracts/Employees/listemployees.dto';
 import { ListEmployeesCommand } from './listemployees.command';
 import { Employee } from 'src/Domain/Employees/employee.schema';
 
-@Controller('employees')
+@ApiTags('Employees')
+@Controller('listemployees')
 export class ListEmployeesController {
   constructor(private readonly commandBus: CommandBus) {}
-  /**
-   * List all employees in the workforce
-   * @param page 
-   * @param limit 
-   * @returns 
-   */
+
   @Get(':page/:limit')
+  @ApiOperation({ summary: 'List all employees' }) // Summary of the operation
+  @ApiResponse({ status: 200, description: 'Successfully retrieved list of employees', type: ListEmployeesDto }) // Successful response
+  @ApiResponse({ status: 400, description: 'Bad Request.' }) // Error response
   async findAll(
     @Param('page') page: number,
     @Param('limit') limit: number,

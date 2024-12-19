@@ -8,9 +8,8 @@ async function bootstrap() {
 
   const config = new DocumentBuilder()
     .setTitle('WORKFORCE')
-    .setDescription('The WORKFORCE API description')
+    .setDescription('A simple API for managing the ever changing workforce')
     .setVersion('1.0')
-    .addTag('Employee')
     .build();
   const document = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('api', app, document);
